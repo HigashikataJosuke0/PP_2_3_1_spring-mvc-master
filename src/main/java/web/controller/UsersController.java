@@ -24,13 +24,13 @@ public class UsersController {
     @RequestMapping("/addNewUser")
     public String addNewUser(ModelMap model) {
         model.addAttribute("user", new User());
-        return "/addNewUser";
+        return "addNewUser";
     }
 
     @GetMapping(value = "/allusers")
     public String getAllUsers(ModelMap model) {
-        model.addAttribute("allUsers", userService.getAll().stream().toList());
-        return "/allusers";
+        model.addAttribute("allUsers", userService.getAll());
+        return "allusers";
     }
 
     @RequestMapping("saveUser")

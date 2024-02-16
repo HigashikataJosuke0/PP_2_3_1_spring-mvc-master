@@ -14,6 +14,7 @@ public class User {
     private long id;
     @Column
     private String name;
+    @Column
     private String surname;
 
     @Column
@@ -22,7 +23,6 @@ public class User {
 
     public User() {
     }
-
 
     public User(String name, String surname, int salary) {
         this.name = name;
