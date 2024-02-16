@@ -29,7 +29,7 @@ public class UserDaoImp implements UserDao {
     }
 
     public List<User> getAll(){
-        return entityManager.createQuery("select u from  User u", User.class)
+        return entityManager.createQuery("from User user", User.class)
                 .getResultList();
     }
 }
