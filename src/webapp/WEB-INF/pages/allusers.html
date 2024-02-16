@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="http://java.sun.com/xml/ns/javaee">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AllUsers</title>
+</head>
+<body>
+<table>
+    <tr>
+
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Salary</th>
+        <br>
+        <th>Operation</th>
+    </tr>
+    <tr th:each="user : ${allUsers}">
+
+        <a th:href="@{/updateInfo(userId=${user.id})}"
+           th:id="updateButton">Update Information</a>
+
+
+        <td th:text="${user.name}">Null</td>
+        <td th:text="${user.surname}">Null</td>
+        <td th:text="${user.salary}">Null</td>
+        <td>
+            <input type="button" value="Update"
+                   onclick="window.location.href = `${updateButton}`"/>
+    </tr>
+</table>
+<br><br>
+<input type="button" value="Add"
+       onclick="window.location.href = 'addNewUser'"/>
+
+</body>
+</html>
