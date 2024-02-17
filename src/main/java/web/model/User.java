@@ -13,10 +13,8 @@ public class User {
     private String name;
     @Column
     private String surname;
-
     @Column
     private int salary;
-
 
     public User() {
     }

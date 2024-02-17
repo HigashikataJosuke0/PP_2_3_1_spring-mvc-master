@@ -3,15 +3,15 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
 
+import javax.validation.Valid;
+
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
 public class UsersController {
     private UserService userService;
 
@@ -21,28 +21,39 @@ public class UsersController {
     }
 
 
-    @RequestMapping("/addNewUser")
-    public String addNewUser(ModelMap model) {
-        model.addAttribute("user", new User());
-        return "addNewUser";
-    }
-
-    @GetMapping(value = "/allusers")
+    @RequestMapping(value = "/allusers")
     public String getAllUsers(ModelMap model) {
-        model.addAttribute("allUsers", userService.getAll());
+        model.addAttribute("allusers", userService.getAll());
         return "allusers";
     }
+   @GetMapping("/addnewuser")
+    public String addNewUser(ModelMap model) {
+        model.addAttribute("user", new User());
+        return "/addnewuser";
+    }
+    @PostMapping ("saveUser")
+    public String saveUser(ModelMap modelMap, @Valid User user, BindingResult bindingResult) {
 
-    @RequestMapping("saveUser")
-    public String saveUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+        if(bindingResult.hasErrors())
+        {
+            modelMap.addAttribute(user);
+            return "redirect:/allusers";
+        }
+
+        userService.save(user);
+
         return "redirect:/allusers";
     }
 
-    @RequestMapping("/updateIndo")
-    public String updateUser(@RequestParam("empId") int id, ModelMap model) {
+    @RequestMapping("/updateInfo")
+    public String updateUser(@RequestParam("usrId") long id, ModelMap model) {
         User user = userService.getUserById(id);
         model.addAttribute("user", user);
-        return "addNewUser";
+        return "/addnewuser";
+    }
+    @RequestMapping("/deleteUser")
+    public String deleteUser(@RequestParam("usrId") long id ){
+        userService.removeById(id);
+        return "redirect:/allusers";
     }
 }

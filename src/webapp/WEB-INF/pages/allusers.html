@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:c="http://java.sun.com/xml/ns/javaee">
+<html lang="en">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -15,23 +15,20 @@
         <br>
         <th>Operation</th>
     </tr>
-    <tr th:each="user : ${allUsers}">
-
-        <a th:href="@{/updateInfo(userId=${user.id})}"
-           th:id="updateButton">Update Information</a>
-
+    <tr th:each="user : ${allusers}">
 
         <td th:text="${user.name}">Null</td>
         <td th:text="${user.surname}">Null</td>
         <td th:text="${user.salary}">Null</td>
         <td>
-            <input type="button" value="Update"
-                   onclick="window.location.href = `${updateButton}`"/>
+            <a th:href="@{/updateInfo (usrId=${user.id})}">Update</a>
+            <a th:href="@{/deleteUser(usrId=${user.id})}">Delete</a>
+        </td>
     </tr>
 </table>
 <br><br>
 <input type="button" value="Add"
-       onclick="window.location.href = 'addNewUser'"/>
+       onclick="window.location.href = 'addnewuser'"/>
 
 </body>
 </html>

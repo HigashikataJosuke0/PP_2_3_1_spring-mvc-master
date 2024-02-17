@@ -5,6 +5,7 @@ import web.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -13,19 +14,19 @@ public class UserDaoImp implements UserDao {
     private EntityManager entityManager;
 
     @Override
-    public User getUserById(int  id) {
-
-        return null;
+    public User getUserById(long  id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
-    public void add(User user) {
+    public void save(User user) {
         entityManager.merge(user);
     }
 
     @Override
-    public void removeById(int id) {
-
+    public void removeById(long id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
     }
 
     public List<User> getAll(){
